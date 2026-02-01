@@ -73,21 +73,18 @@ function CourseCard({ course, index }: CourseCardProps) {
       transition={{ duration: 0.6, delay: index * 0.1 }}
       className={cn(
         "group relative rounded-2xl overflow-hidden bg-card border border-border card-interactive",
-        course.featured && "md:col-span-2 md:row-span-2"
+        course.featured && "border-primary/30"
       )}
     >
       {/* Image */}
-      <div className={cn(
-        "relative overflow-hidden",
-        course.featured ? "aspect-[16/10]" : "aspect-video"
-      )}>
+      <div className="relative overflow-hidden aspect-video">
         <img
           src={course.image}
           alt={course.title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent opacity-60" />
-        
+
         {/* Play button overlay */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center backdrop-blur-sm">
@@ -115,10 +112,7 @@ function CourseCard({ course, index }: CourseCardProps) {
 
       {/* Content */}
       <div className="p-6">
-        <h3 className={cn(
-          "font-display font-semibold mb-3 group-hover:text-primary transition-colors line-clamp-2",
-          course.featured ? "text-2xl" : "text-lg"
-        )}>
+        <h3 className="font-display font-semibold text-lg mb-3 group-hover:text-primary transition-colors line-clamp-2">
           {course.title}
         </h3>
 
@@ -190,7 +184,7 @@ export function FeaturedCourses() {
         </motion.div>
 
         {/* Course Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {courses.map((course, i) => (
             <CourseCard key={course.id} course={course} index={i} />
           ))}

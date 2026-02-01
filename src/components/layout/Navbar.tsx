@@ -41,11 +41,11 @@ export function Navbar() {
         {/* Logo */}
         <Link to="/" className="flex items-center gap-3 group">
           <div className="relative w-10 h-10 flex items-center justify-center">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-lg opacity-80 group-hover:opacity-100 transition-opacity shadow-[0_0_20px_-5px_rgba(59,130,246,0.5)]" />
-            <span className="relative font-sora font-bold text-lg text-primary-foreground">A</span>
+            <div className="absolute inset-0 bg-gradient-to-br from-primary to-accent rounded-lg opacity-80 group-hover:opacity-100 transition-opacity" />
+            <span className="relative font-display font-bold text-lg text-primary-foreground">A</span>
           </div>
-          <span className="font-sora font-bold text-xl tracking-tighter">
-            ARTVINCE<span className="text-primary-glow">ACADEMY</span>
+          <span className="font-display font-semibold text-xl tracking-tight">
+            Artvince<span className="text-primary">Academy</span>
           </span>
         </Link>
 
