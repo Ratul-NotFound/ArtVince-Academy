@@ -27,6 +27,8 @@ const buttonVariants = cva(
           "bg-primary text-primary-foreground shadow-[0_0_30px_-5px_hsl(var(--primary))] hover:shadow-[0_0_40px_-5px_hsl(var(--primary))] hover:-translate-y-0.5",
         glass:
           "bg-card/50 backdrop-blur-xl border border-border/50 text-foreground hover:bg-card/70 hover:border-primary/30",
+        premium:
+          "btn-premium text-primary-foreground font-semibold",
       },
       size: {
         default: "h-10 px-5 py-2",
@@ -45,7 +47,7 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   asChild?: boolean;
 }
 

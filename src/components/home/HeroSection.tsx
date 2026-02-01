@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Play, ArrowRight, Sparkles } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { Play, ArrowRight, Sparkles, GraduationCap, Zap, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
 
@@ -12,13 +12,33 @@ export function HeroSection() {
     offset: ["start start", "end start"],
   });
 
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const springConfig = { damping: 25, stiffness: 700 };
+  const springX = useSpring(mouseX, springConfig);
+  const springY = useSpring(mouseY, springConfig);
+
+  const rotateX = useTransform(springY, [-0.5, 0.5], [5, -5]);
+  const rotateY = useTransform(springX, [-0.5, 0.5], [-5, 5]);
+
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
 
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden hero-pattern"
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex items-center justify-center overflow-hidden hero-pattern group/hero"
     >
       {/* Background Image */}
       <div className="absolute inset-0">
@@ -63,7 +83,10 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <motion.div style={{ y, opacity }} className="container relative z-10 pt-24">
+      <motion.div
+        style={{ y, opacity, rotateX, rotateY, perspective: 1000 }}
+        className="container relative z-10 pt-24"
+      >
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
@@ -105,7 +128,7 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button variant="hero" size="xl" asChild>
+            <Button variant="premium" size="xl" asChild>
               <Link to="/courses">
                 Explore Courses
                 <ArrowRight size={20} />
@@ -124,25 +147,28 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-10 border-t border-border/50"
+            className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-20 pt-10 border-t border-border/50"
           >
             {[
-              { value: "10K+", label: "Students Enrolled" },
-              { value: "50+", label: "Expert Mentors" },
-              { value: "100+", label: "Premium Courses" },
-              { value: "95%", label: "Success Rate" },
+              { value: "10K+", label: "Students Enrolled", icon: Globe },
+              { value: "50+", label: "Expert Mentors", icon: GraduationCap },
+              { value: "100+", label: "Premium Courses", icon: Zap },
+              { value: "95%", label: "Success Rate", icon: Sparkles },
             ].map((stat, i) => (
               <motion.div
                 key={stat.label}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 + i * 0.1 }}
-                className="text-center"
+                className="text-center p-4 rounded-xl hover:bg-white/5 transition-colors group/stat"
               >
+                <div className="flex justify-center mb-3">
+                  <stat.icon size={24} className="text-primary opacity-50 group-hover/stat:opacity-100 transition-opacity" />
+                </div>
                 <div className="font-display text-3xl md:text-4xl font-bold gradient-text mb-2">
                   {stat.value}
                 </div>
-                <div className="text-sm text-muted-foreground">{stat.label}</div>
+                <div className="text-sm text-muted-foreground font-medium uppercase tracking-wider">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
