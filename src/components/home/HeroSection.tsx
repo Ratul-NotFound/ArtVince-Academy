@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { Play, ArrowRight, Sparkles, GraduationCap, Zap, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import heroBg from "@/assets/hero-bg.jpg";
 
 export function HeroSection() {
@@ -32,6 +33,33 @@ export function HeroSection() {
     const y = (e.clientY - rect.top) / rect.height - 0.5;
     mouseX.set(x);
     mouseY.set(y);
+  };
+
+  const particles = useMemo(() => [
+    { icon: Sparkles, x: "-10%", y: "20%", size: 20, delay: 0, speed: 0.05 },
+    { icon: Play, x: "15%", y: "10%", size: 24, delay: 0.2, speed: 0.08 },
+    { icon: Zap, x: "-15%", y: "60%", size: 18, delay: 0.4, speed: 0.03 },
+    { icon: GraduationCap, x: "12%", y: "70%", size: 22, delay: 0.6, speed: 0.06 },
+    { icon: Globe, x: "25%", y: "40%", size: 16, delay: 0.8, speed: 0.04 },
+  ], []);
+
+  const titleWords = "Master the Art of Game Creation".split(" ");
+
+  const containerVariants: any = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.12, delayChildren: 0.3 }
+    }
+  };
+
+  const itemVariants: any = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+    }
   };
 
   return (
@@ -80,42 +108,72 @@ export function HeroSection() {
 
         {/* Grid overlay */}
         <div className="absolute inset-0 grid-pattern opacity-30" />
+
+        {/* Floating Particles */}
+        <div className="absolute inset-0 pointer-events-none">
+          {particles.map((p, i) => {
+            const particleX = useTransform(springX, [-0.5, 0.5], [`${-50 * p.speed}%`, `${50 * p.speed}%`]);
+            const particleY = useTransform(springY, [-0.5, 0.5], [`${-50 * p.speed}%`, `${50 * p.speed}%`]);
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, scale: 0 }}
+                animate={{ opacity: [0, 0.4, 0.2], scale: 1 }}
+                transition={{ duration: 1, delay: p.delay }}
+                style={{ left: p.x, top: p.y, x: particleX, y: particleY }}
+                className="absolute"
+              >
+                <p.icon size={p.size} className="text-primary/40" />
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Content */}
       <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
         style={{ y, opacity, rotateX, rotateY, perspective: 1000 }}
         className="container relative z-10 pt-24"
       >
         <div className="max-w-5xl mx-auto text-center">
           {/* Badge */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm mb-8"
+            variants={itemVariants}
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm mb-8 hover:bg-primary/20 transition-colors pointer-events-auto cursor-default"
           >
             <Sparkles size={16} className="text-primary" />
             <span className="text-primary font-medium">New courses available for 2024</span>
           </motion.div>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight mb-6"
-          >
-            Master the Art of
-            <br />
-            <span className="gradient-text">Game Creation</span>
-          </motion.h1>
+          {/* Headline with Word Reveal */}
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight mb-6">
+            <div className="flex flex-wrap justify-center gap-x-[0.2em]">
+              {titleWords.map((word, i) => (
+                <motion.span
+                  key={i}
+                  variants={{
+                    hidden: { opacity: 0, y: 40, rotateX: 45 },
+                    visible: {
+                      opacity: 1,
+                      y: 0,
+                      rotateX: 0,
+                      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.05 }
+                    }
+                  }}
+                  className={cn("inline-block transform-gpu", i >= 4 && "gradient-text")}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+          </h1>
 
           {/* Subheadline */}
           <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            variants={itemVariants}
             className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto mb-10 text-balance"
           >
             Learn 3D Animation, Character Design, Game Development, and more from industry professionals who've worked on AAA titles.
@@ -123,9 +181,7 @@ export function HeroSection() {
 
           {/* CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
+            variants={itemVariants}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
             <Button variant="premium" size="xl" asChild>
@@ -144,9 +200,7 @@ export function HeroSection() {
 
           {/* Stats */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
+            variants={itemVariants}
             className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 mt-20 pt-10 border-t border-border/50"
           >
             {[
