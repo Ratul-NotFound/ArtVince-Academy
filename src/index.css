@@ -9,34 +9,34 @@
 
 @layer base {
   :root {
-    /* Core Dark Theme */
-    --background: 240 10% 4%;
+    /* Legendary Gaming Theme */
+    --background: 240 10% 2%;
     --foreground: 0 0% 100%;
 
     /* Cards & Surfaces */
-    --card: 240 10% 6%;
+    --card: 240 10% 4%;
     --card-foreground: 0 0% 100%;
-    --card-elevated: 240 10% 8%;
+    --card-elevated: 240 10% 6%;
 
     /* Popover */
-    --popover: 240 10% 6%;
+    --popover: 240 10% 4%;
     --popover-foreground: 0 0% 100%;
 
-    /* Primary - Electric Blue */
-    --primary: 210 100% 50%;
-    --primary-foreground: 0 0% 100%;
-    --primary-glow: 210 100% 60%;
+    /* Primary - Legendary Gold */
+    --primary: 45 100% 50%;
+    --primary-foreground: 240 10% 2%;
+    --primary-glow: 45 100% 60%;
 
-    /* Secondary */
-    --secondary: 240 10% 12%;
+    /* Secondary - Deep Obsidian */
+    --secondary: 240 10% 8%;
     --secondary-foreground: 0 0% 90%;
 
     /* Muted */
-    --muted: 240 10% 15%;
+    --muted: 240 10% 12%;
     --muted-foreground: 240 5% 55%;
 
-    /* Accent - Cyan */
-    --accent: 190 100% 50%;
+    /* Accent - Mystic Violet */
+    --accent: 280 100% 60%;
     --accent-foreground: 0 0% 100%;
 
     /* Destructive */
@@ -44,33 +44,20 @@
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 240 10% 15%;
-    --input: 240 10% 12%;
-    --ring: 210 100% 50%;
+    --border: 45 100% 50% / 0.1;
+    --input: 240 10% 8%;
+    --ring: 45 100% 50%;
 
     /* Radius */
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(210 100% 50%) 0%, hsl(190 100% 50%) 100%);
-    --gradient-dark: linear-gradient(180deg, hsl(240 10% 6%) 0%, hsl(240 10% 3%) 100%);
-    --gradient-glow: radial-gradient(ellipse at center, hsl(210 100% 50% / 0.15) 0%, transparent 70%);
-    --gradient-hero: radial-gradient(ellipse at top, hsl(210 100% 50% / 0.08) 0%, transparent 50%);
+    --gradient-primary: linear-gradient(135deg, hsl(45 100% 50%) 0%, hsl(30 100% 50%) 100%);
+    --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(240 10% 4%) 0%, hsl(240 10% 1%) 100%);
 
     /* Shadows */
-    --shadow-glow: 0 0 60px -12px hsl(210 100% 50% / 0.4);
-    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.5);
-    --shadow-elevated: 0 8px 32px -8px hsl(0 0% 0% / 0.6);
-
-    /* Sidebar (keeping for compatibility) */
-    --sidebar-background: 240 10% 4%;
-    --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 210 100% 50%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 10% 10%;
-    --sidebar-accent-foreground: 0 0% 100%;
-    --sidebar-border: 240 10% 12%;
-    --sidebar-ring: 210 100% 50%;
+    --shadow-glow: 0 0 40px -10px hsl(45 100% 50% / 0.3);
   }
 }
 
@@ -85,23 +72,26 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
   }
 
   h1,
-  h2,
+  h2 {
+    font-family: 'Cinzel', serif;
+    @apply font-bold tracking-widest uppercase;
+  }
+
   h3,
   h4,
   h5,
   h6 {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
-    @apply font-semibold tracking-tight;
+    font-family: 'Syne', sans-serif;
+    @apply font-extrabold tracking-tight;
   }
 
   /* Custom scrollbar */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -109,11 +99,8 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-muted rounded-full;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-muted-foreground/50;
+    background: var(--gradient-primary);
+    @apply rounded-full;
   }
 }
 
@@ -121,23 +108,14 @@
 
   /* Glass effect */
   .glass {
-    @apply bg-card/80 backdrop-blur-xl border border-border/50;
-  }
-
-  /* Glow effects */
-  .glow-primary {
-    box-shadow: var(--shadow-glow);
-  }
-
-  .glow-text {
-    text-shadow: 0 0 40px hsl(210 100% 50% / 0.5);
+    @apply bg-card/60 backdrop-blur-2xl border border-white/5;
   }
 
   /* Gradient text */
   .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(210 100% 60%) 0%, hsl(190 100% 50%) 100%);
-    @apply font-bold drop-shadow-sm;
+    @apply bg-clip-text text-transparent font-bold;
+    background-image: var(--gradient-gold);
+    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
   }
 
   /* Interactive card */
