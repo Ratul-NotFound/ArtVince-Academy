@@ -142,14 +142,14 @@ export function HeroSection() {
           {/* Badge */}
           <motion.div
             variants={itemVariants}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm mb-8 hover:bg-primary/20 transition-colors pointer-events-auto cursor-default"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-sm mb-8 hover:bg-primary/20 transition-colors pointer-events-auto cursor-default font-calligraphic text-xl tracking-wide"
           >
             <Sparkles size={16} className="text-primary" />
             <span className="text-primary font-medium">New courses available for 2024</span>
           </motion.div>
 
           {/* Headline with Word Reveal */}
-          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal leading-[1] tracking-wider mb-6">
+          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight mb-6">
             <div className="flex flex-wrap justify-center gap-x-[0.2em]">
               {titleWords.map((word, i) => (
                 <motion.span
@@ -231,68 +231,18 @@ export function HeroSection() {
 
       {/* Scroll indicator */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 cursor-pointer group/scroll"
-        onClick={() => {
-          const nextSection = containerRef.current?.nextElementSibling;
-          nextSection?.scrollIntoView({ behavior: 'smooth' });
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <div className="relative flex items-center justify-center">
-          {/* Radar Pulse */}
-          <motion.div
-            animate={{
-              scale: [1, 1.8],
-              opacity: [0.3, 0]
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              ease: "easeOut"
-            }}
-            className="absolute w-12 h-12 rounded-full border border-primary/40"
-          />
-          <motion.div
-            animate={{
-              scale: [1, 2.2],
-              opacity: [0.2, 0]
-            }}
-            transition={{
-              duration: 2.5,
-              repeat: Infinity,
-              ease: "easeOut",
-              delay: 0.5
-            }}
-            className="absolute w-12 h-12 rounded-full border border-primary/20"
-          />
-
-          {/* Creative SVG Mouse */}
-          <div className="relative z-10 w-8 h-12 rounded-full border-2 border-primary/30 flex justify-center p-1.5 backdrop-blur-sm group-hover/scroll:border-primary/60 transition-colors">
-            <motion.div
-              animate={{
-                y: [0, 16, 0],
-                opacity: [1, 0.5, 1],
-                scale: [1, 0.8, 1]
-              }}
-              transition={{
-                duration: 2.5,
-                repeat: Infinity,
-                ease: [0.16, 1, 0.3, 1]
-              }}
-              className="w-1.5 h-3 rounded-full bg-gradient-to-b from-primary to-accent shadow-[0_0_10px_rgba(255,215,0,0.5)]"
-            />
-          </div>
-        </div>
-
-        <motion.span
-          animate={{ opacity: [0.4, 0.8, 0.4] }}
-          transition={{ duration: 3, repeat: Infinity }}
-          className="text-[10px] font-bold tracking-[0.3em] uppercase text-primary/60 group-hover/scroll:text-primary transition-colors"
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity }}
+          className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center p-2"
         >
-          Scroll to Explore
-        </motion.span>
+          <motion.div className="w-1.5 h-3 rounded-full bg-primary" />
+        </motion.div>
       </motion.div>
     </section>
   );
