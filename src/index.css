@@ -9,7 +9,7 @@
 
 @layer base {
   :root {
-    /* Legendary Gaming Theme */
+    /* Epic Calligraphic Gaming Theme */
     --background: 240 10% 2%;
     --foreground: 0 0% 100%;
 
@@ -22,12 +22,12 @@
     --popover: 240 10% 4%;
     --popover-foreground: 0 0% 100%;
 
-    /* Primary - Legendary Gold */
-    --primary: 45 100% 50%;
+    /* Primary - Burnished Gold */
+    --primary: 40 100% 50%;
     --primary-foreground: 240 10% 2%;
-    --primary-glow: 45 100% 60%;
+    --primary-glow: 40 100% 60%;
 
-    /* Secondary - Deep Obsidian */
+    /* Secondary - Deep Charcoal */
     --secondary: 240 10% 8%;
     --secondary-foreground: 0 0% 90%;
 
@@ -35,29 +35,31 @@
     --muted: 240 10% 12%;
     --muted-foreground: 240 5% 55%;
 
-    /* Accent - Mystic Violet */
-    --accent: 280 100% 60%;
+    /* Accent - Spectral Crimson */
+    --accent: 0 100% 50%;
     --accent-foreground: 0 0% 100%;
 
     /* Destructive */
-    --destructive: 0 72% 51%;
+    --destructive: 0 100% 40%;
     --destructive-foreground: 0 0% 100%;
 
     /* Borders & Inputs */
-    --border: 45 100% 50% / 0.1;
+    --border: 40 100% 50% / 0.15;
     --input: 240 10% 8%;
-    --ring: 45 100% 50%;
+    --ring: 40 100% 50%;
 
     /* Radius */
-    --radius: 0.5rem;
+    --radius: 0.25rem;
+    /* Sharper, more tactical radius */
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(45 100% 50%) 0%, hsl(30 100% 50%) 100%);
-    --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(40 100% 50%) 0%, hsl(20 100% 50%) 100%);
+    --gradient-gold: linear-gradient(135deg, #FFD700 0%, #FF8C00 100%);
     --gradient-dark: linear-gradient(180deg, hsl(240 10% 4%) 0%, hsl(240 10% 1%) 100%);
+    --gradient-epic: linear-gradient(135deg, hsl(40 100% 50%) 0%, hsl(0 100% 50%) 100%);
 
     /* Shadows */
-    --shadow-glow: 0 0 40px -10px hsl(45 100% 50% / 0.3);
+    --shadow-glow: 0 0 40px -10px hsl(40 100% 50% / 0.4);
   }
 }
 
@@ -72,17 +74,22 @@
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-family: 'Outfit', system-ui, sans-serif;
   }
 
-  h1,
-  h2 {
-    font-family: 'Cinzel', serif;
-    @apply font-bold tracking-widest uppercase;
+  h1 {
+    font-family: 'Pirata One', cursive;
+    @apply font-normal tracking-wider;
+    text-shadow: 0 0 20px hsl(40 100% 50% / 0.2);
   }
 
+  h2,
   h3,
-  h4,
+  h4 {
+    font-family: 'Metamorphous', serif;
+    @apply font-normal tracking-tight;
+  }
+
   h5,
   h6 {
     font-family: 'Syne', sans-serif;
@@ -99,8 +106,8 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--gradient-primary);
-    @apply rounded-full;
+    background: var(--gradient-epic);
+    @apply rounded-none;
   }
 }
 
@@ -108,14 +115,14 @@
 
   /* Glass effect */
   .glass {
-    @apply bg-card/60 backdrop-blur-2xl border border-white/5;
+    @apply bg-card/70 backdrop-blur-3xl border border-white/10;
   }
 
   /* Gradient text */
   .gradient-text {
-    @apply bg-clip-text text-transparent font-bold;
-    background-image: var(--gradient-gold);
-    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
+    @apply bg-clip-text text-transparent;
+    background-image: var(--gradient-epic);
+    filter: drop-shadow(0 0 15px rgba(255, 69, 0, 0.4));
   }
 
   /* Interactive card */

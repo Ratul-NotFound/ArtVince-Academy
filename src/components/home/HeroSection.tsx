@@ -149,7 +149,7 @@ export function HeroSection() {
           </motion.div>
 
           {/* Headline with Word Reveal */}
-          <h1 className="font-display text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-[1.1] tracking-tight mb-6">
+          <h1 className="font-display text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-normal leading-[1] tracking-wider mb-6">
             <div className="flex flex-wrap justify-center gap-x-[0.2em]">
               {titleWords.map((word, i) => (
                 <motion.span
